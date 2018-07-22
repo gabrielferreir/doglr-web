@@ -6,9 +6,8 @@
     <div class="ui-progress accent" [class.hide]="!loading">
       <div class="indeterminate"></div>
     </div>
-    <ui-tabs-pages #tabsPages>
       <div class="page pre-info">
-        <form #preLoginForm="ngForm" class="ui-validate on-submit on-dirty" (submit)="getInfo(preLoginForm, preLogin)">
+        <form #preLoginForm="ngForm" class="ui-validate on-submit on-dirty" (submit)="login()">
           <ui-card-title>Inicie sua sessão</ui-card-title>
           <ui-card-content>
             <ui-input-container>
@@ -64,6 +63,5 @@
           </div>
         </form>
       </div>
-    </ui-tabs-pages>
   </ui-card>
 </div>
