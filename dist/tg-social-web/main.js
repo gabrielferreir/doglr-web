@@ -563,7 +563,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  main works!\n</p>\n"
+module.exports = "<header>HEADER</header>\n"
 
 /***/ }),
 
