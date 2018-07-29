@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {ApiService} from '../api/api.service';
 import {UserService} from '../user/user.service';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class GuardService implements CanActivate {
@@ -13,17 +14,21 @@ export class GuardService implements CanActivate {
   ) {
   }
 
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const token = this._user.getToken();
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    const user = <any>this._user.getUser();
     // VERIFIQUE PELO LOGIN
-    console.log(token);
-    return token ? true : this.remake();
+    console.log(user);
+    return user.id ? true : this.remake();
   }
 
   remake() {
-    return new Promise(resolve => {
-      const cookies = this._user.getCookie();
-      !!cookies && this.router.navigate(['/login']);
+    return new Promise<boolean>(resolve => {
+      const cookies = this._user.getCookie().authentication;
+      console.log(cookies);
+      if (!cookies) {
+        this.router.navigate(['/login']);
+      }
+      // CASO EXISTA O TOKEN, PEGUE OS DADOS DO USUARIO PELO TOKEN
       resolve(!!cookies);
     });
 

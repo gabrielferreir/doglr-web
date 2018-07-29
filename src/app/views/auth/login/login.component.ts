@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {environment} from '../../../../environments/environment';
 import {ApiService} from '../../../core/api/api.service';
 import {UserService} from '../../../core/user/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
   info: any;
 
   constructor(private _api: ApiService,
-              private _user: UserService) {
+              private _user: UserService,
+              private _router: Router) {
     this.info = {};
   }
 
@@ -29,10 +31,11 @@ export class LoginComponent implements OnInit {
     this._api.request('POST', `${environment.API}/login`, {
       body: this.info
     }).subscribe(response => {
-      console.log(response);
       const content = response.content;
-      console.log(content.token);
       this._user.setToken(content.token);
+      this._user.setUser(content.user);
+
+      this._router.navigate(['/']);
 
     }, err => {
       console.log(err);

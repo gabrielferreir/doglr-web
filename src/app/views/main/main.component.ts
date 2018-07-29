@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../../core/user/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -6,10 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
+  title: string;
+  menuOpen: boolean;
+  user: any;
 
-  constructor() { }
+  constructor(private _user: UserService,
+              private _router: Router) {
+    this.title = 'Home';
+
+    this.user = this._user.getUser();
+  }
 
   ngOnInit() {
+  }
+
+  logoff() {
+    this._router.navigate(['/login']);
   }
 
 }

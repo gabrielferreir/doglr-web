@@ -17,7 +17,7 @@
                      uiInput
                      required
                      #ngModelEmail="ngModel"
-                     pattern="[a-z0-9!#$%&\'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\\.[a-z0-9-]+)*"
+                     email
                      id="pre-login-usuario"
                      class="accent"
                      autofocus>
@@ -27,11 +27,8 @@
                   <div class="ui-message error" [hidden]="!ngModelEmail.pristine && !ngModelEmail.errors.required">
                     Use seu e-mail
                   </div>
-                  <div class="ui-message error" [hidden]="!ngModelEmail.errors.pattern">
+                  <div class="ui-message error" [hidden]="!ngModelEmail.errors.email">
                     Use um e-mail válido
-                  </div>
-                  <div class="ui-message error" [hidden]="!ngModelEmail.errors.notFound">
-                    Este e-mail não existe
                   </div>
                 </div>
               </div>
