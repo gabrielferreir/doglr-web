@@ -254,7 +254,6 @@ var ApiService = /** @class */ (function () {
         return res.type === _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpEventType"].Response ? callback(res.body) : null;
     };
     ApiService.prototype.error = function (res, callback) {
-        console.log(res);
         switch (res.status) {
             case 0:
                 console.log('Um de nossos serviços está fora do ar e não foi possível processar sua requisição. Tente novamente mais tarde.');
@@ -298,6 +297,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _api_api_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../api/api.service */ "./src/app/core/api/api.service.ts");
 /* harmony import */ var _user_user_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../user/user.service */ "./src/app/core/user/user.service.ts");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -307,6 +307,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -330,9 +331,19 @@ var GuardService = /** @class */ (function () {
             console.log(cookies);
             if (!cookies) {
                 _this.router.navigate(['/login']);
+                resolve(false);
             }
-            // CASO EXISTA O TOKEN, PEGUE OS DADOS DO USUARIO PELO TOKEN
-            resolve(!!cookies);
+            _this._api.request('GET', _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].API + "/refazer/" + cookies, {})
+                .subscribe(function (res) {
+                var content = res.content;
+                _this._user.setUser(content.user);
+                resolve(true);
+            }, function (err) {
+                resolve(false);
+                _this.router.navigate(['/login']);
+            }, function () {
+                console.log('Complete');
+            });
         });
     };
     GuardService = __decorate([
