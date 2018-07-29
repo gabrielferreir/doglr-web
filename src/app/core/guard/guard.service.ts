@@ -3,6 +3,7 @@ import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '
 import {ApiService} from '../api/api.service';
 import {UserService} from '../user/user.service';
 import {Observable} from 'rxjs';
+import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class GuardService implements CanActivate {
@@ -27,11 +28,21 @@ export class GuardService implements CanActivate {
       console.log(cookies);
       if (!cookies) {
         this.router.navigate(['/login']);
+        resolve(false);
       }
-      // CASO EXISTA O TOKEN, PEGUE OS DADOS DO USUARIO PELO TOKEN
-      resolve(!!cookies);
-    });
 
+      this._api.request('GET', `${environment.API}/refazer/${cookies}`, {})
+        .subscribe(res => {
+          const content = res.content;
+          this._user.setUser(content.user);
+          resolve(true);
+        }, err => {
+          resolve(false);
+          this.router.navigate(['/login']);
+        }, () => {
+          console.log('Complete');
+        });
+    });
   }
 
 }

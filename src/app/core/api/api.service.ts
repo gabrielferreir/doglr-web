@@ -50,7 +50,6 @@ export class ApiService {
   }
 
   error(res, callback) {
-    console.log(res)
     switch (res.status) {
       case 0:
         console.log('Um de nossos serviços está fora do ar e não foi possível processar sua requisição. Tente novamente mais tarde.');
