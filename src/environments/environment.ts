@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API: 'http://localhost:5010',
+  API: 'http://192.168.10.91:5010',
   system: 'MiAuDote'
 };
 
