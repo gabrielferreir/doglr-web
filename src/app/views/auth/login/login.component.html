@@ -6,59 +6,62 @@
     <div class="ui-progress accent" [class.hide]="!loading">
       <div class="indeterminate"></div>
     </div>
-      <div class="page pre-info">
-        <form #preLoginForm="ngForm" class="ui-validate on-submit on-dirty" (submit)="login()">
-          <ui-card-title>Inicie sua sessão</ui-card-title>
-          <ui-card-content>
-            <ui-input-container>
-              <input type="email"
-                     name="usuario"
-                     [(ngModel)]="info.email"
-                     uiInput
-                     required
-                     #ngModelEmail="ngModel"
-                     email
-                     id="pre-login-usuario"
-                     class="accent"
-                     autofocus>
-              <label for="pre-login-usuario">E-mail</label>
-              <div class="ui-messages">
-                <div *ngIf="ngModelEmail.errors && ngModelEmail.dirty">
-                  <div class="ui-message error" [hidden]="!ngModelEmail.pristine && !ngModelEmail.errors.required">
-                    Use seu e-mail
-                  </div>
-                  <div class="ui-message error" [hidden]="!ngModelEmail.errors.email">
-                    Use um e-mail válido
-                  </div>
+    <div class="page pre-info">
+      <form #preLoginForm="ngForm" class="ui-validate on-submit on-dirty" (submit)="login(preLoginForm)">
+        <ui-card-title>Inicie sua sessão</ui-card-title>
+        <ui-card-content>
+          <ui-input-container>
+            <input type="email"
+                   name="usuario"
+                   [(ngModel)]="info.email"
+                   uiInput
+                   required
+                   #ngModelEmail="ngModel"
+                   email
+                   id="pre-login-usuario"
+                   class="accent"
+                   autofocus>
+            <label for="pre-login-usuario">E-mail</label>
+            <div class="ui-messages">
+              <div *ngIf="ngModelEmail.errors && ngModelEmail.dirty">
+                <div class="ui-message error" [hidden]="!ngModelEmail.pristine && !ngModelEmail.errors.required">
+                  Use seu e-mail
+                </div>
+                <div class="ui-message error" [hidden]="!ngModelEmail.errors.email">
+                  Use um e-mail válido
                 </div>
               </div>
-            </ui-input-container>
+            </div>
+          </ui-input-container>
 
-            <ui-input-container>
-              <input type="password"
-                     name="pass"
-                     [(ngModel)]="info.pass"
-                     uiInput
-                     required
-                     #ngModelPass="ngModel"
-                     id="pass"
-                     class="accent"
-                     autofocus>
-              <label for="pass">Senha</label>
-              <div class="ui-messages">
-                <div *ngIf="ngModelPass.errors && ngModelPass.dirty">
-                  <div class="ui-message error" [hidden]="!ngModelPass.pristine && !ngModelPass.errors.required">
-                    Use sua senha
-                  </div>
+          <ui-input-container>
+            <input type="password"
+                   name="pass"
+                   [(ngModel)]="info.pass"
+                   uiInput
+                   required
+                   #ngModelPass="ngModel"
+                   id="pass"
+                   class="accent"
+                   autofocus>
+            <label for="pass">Senha</label>
+            <div class="ui-messages">
+              <div *ngIf="ngModelPass.errors && ngModelPass.dirty">
+                <div class="ui-message error" [hidden]="!ngModelPass.pristine && !ngModelPass.errors.required">
+                  Use sua senha
+                </div>
+                <div class="ui-message error" [hidden]="!ngModelPass.pristine && !ngModelPass.errors.wrong">
+                  Usuario ou senha incorretos
                 </div>
               </div>
-            </ui-input-container>
+            </div>
+          </ui-input-container>
 
-          </ui-card-content>
-          <div class="ui-button-container cover">
-            <button class="ui-button accent full" uiRipple>Entrar</button>
-          </div>
-        </form>
-      </div>
+        </ui-card-content>
+        <div class="ui-button-container cover">
+          <button class="ui-button accent full" uiRipple>Entrar</button>
+        </div>
+      </form>
+    </div>
   </ui-card>
 </div>

@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import {environment} from '../../../../environments/environment';
 import {ApiService} from '../../../core/api/api.service';
 import {UserService} from '../../../core/user/user.service';
 import {Router} from '@angular/router';
+import {UiElement} from 'ng-smn-ui';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private _api: ApiService,
               private _user: UserService,
-              private _router: Router) {
+              private _router: Router,
+              private _element: ElementRef) {
     this.info = {};
   }
 
@@ -26,8 +28,9 @@ export class LoginComponent implements OnInit {
     // this.login();
   }
 
-  login() {
+  login(form) {
     event.preventDefault();
+
     this._api.request('POST', `${environment.API}/login`, {
       body: this.info
     }).subscribe(response => {
@@ -38,7 +41,8 @@ export class LoginComponent implements OnInit {
       this._router.navigate(['/']);
 
     }, err => {
-      console.log(err);
+      // console.log(err);
+      form.controls.pass.setErrors({wrong: true});
     }, () => {
       console.log('Concluido');
     });
