@@ -31,6 +31,18 @@ export class LoginComponent implements OnInit {
   login(form) {
     event.preventDefault();
 
+    const elementPassword = this._element.nativeElement.querySelector('#pass');
+
+    if (form.invalid || this.loading) {
+      form.controls.pass.markAsTouched();
+      form.controls.pass.markAsDirty();
+      elementPassword.focus();
+      return;
+    }
+
+
+    this.loading = true;
+
     this._api.request('POST', `${environment.API}/login`, {
       body: this.info
     }).subscribe(response => {
@@ -41,10 +53,15 @@ export class LoginComponent implements OnInit {
       this._router.navigate(['/']);
 
     }, err => {
-      // console.log(err);
-      form.controls.pass.setErrors({wrong: true});
+      console.log(err);
+
+      if (err.status = 404) {
+        form.controls.pass.setErrors({wrong: true});
+        elementPassword.focus();
+      }
+
     }, () => {
-      console.log('Concluido');
+      this.loading = false;
     });
   }
 
