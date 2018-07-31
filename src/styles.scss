@@ -12,6 +12,7 @@ $theme-dark: ui-theme($primary, $accent, true);
 
 @include ui-build-theme($theme);
 
-.dark {
-  @include ui-build-theme($theme-dark);
-}
+//.dark {
+//  @include ui-build-theme($theme-dark);
+//}
+
