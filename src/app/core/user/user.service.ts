@@ -40,4 +40,10 @@ export class UserService {
     };
   }
 
+  remove() {
+    this.user = null;
+    this.token = null;
+    UiCookie.delete(this.COOKIE_NAME.authentication);
+  }
+
 }

@@ -24,6 +24,7 @@ export class MainComponent implements OnInit {
 
   logoff() {
     this._router.navigate(['/login']);
+    this._user.remove();
   }
 
 }
