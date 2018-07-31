@@ -34,9 +34,11 @@ export class LoginComponent implements OnInit {
     const elementPassword = this._element.nativeElement.querySelector('#pass');
 
     if (form.invalid || this.loading) {
+      form.controls.email.markAsTouched();
+      form.controls.email.markAsDirty();
       form.controls.pass.markAsTouched();
       form.controls.pass.markAsDirty();
-      elementPassword.focus();
+      // elementPassword.focus();
       return;
     }
 
