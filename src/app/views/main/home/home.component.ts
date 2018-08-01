@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {environment} from '../../../../environments/environment';
+import {ApiService} from '../../../core/api/api.service';
 
 @Component({
   selector: 'app-home',
@@ -6,6 +8,8 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+  animals: any[];
 
   joaquina = {
     id: 'dnhsjdba',
@@ -16,10 +20,24 @@ export class HomeComponent implements OnInit {
     visualizacoes: 26
   };
 
-  constructor() {
+  constructor(private _api: ApiService) {
   }
 
   ngOnInit() {
+    this.getAnimals();
+  }
+
+  getAnimals() {
+    this._api.request('GET', `${environment.API}/animals`, {})
+      .subscribe(res => {
+        console.log(res);
+        this.animals = res.content;
+      }, err => {
+        console.log(err);
+
+      }, () => {
+
+      });
   }
 
 }
