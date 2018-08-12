@@ -1,3 +1,54 @@
-<p>
-  animal works!
-</p>
+<div class="ui-s960">
+    <ui-card class="elevate-on-toolbar" [class.loading]="loading">
+      <div class="ui-progress" [class.hide]="!loading">
+        <div class="indeterminate"></div>
+      </div>
+
+
+      <ui-toolbar class="flat">
+        <button class="ui-button flat icon" type="button" uiRipple (click)="_location.back()">
+          <i class="material-icons">arrow_back</i>
+        </button>
+        <span class="title">Animal</span>
+      </ui-toolbar>
+
+      <ui-tabs-pages #images (click)="nextImage()">
+        <div class="page">
+          <div *ngIf="images.currentPage === 1">
+            <ui-card-content style="padding: 16px 8px">
+              <p>TESTE</p>
+              <br>
+              <br>
+              <br>
+              <br>
+            </ui-card-content>
+
+          </div>
+        </div>
+        <div class="page">
+          <div *ngIf="images.currentPage === 2">
+            <ui-card-content>
+              <p>TESTE 2</p>
+              <br>
+              <br>
+              <br>
+              <br>
+            </ui-card-content>
+          </div>
+        </div>
+        <div class="page">
+          <div *ngIf="images.currentPage === 3">
+            <ui-card-content>
+              <p>TESTE 3
+              <br>
+              <br>
+              <br>
+              <br>
+              </p>
+            </ui-card-content>
+          </div>
+        </div>
+      </ui-tabs-pages>
+
+    </ui-card>
+</div>
