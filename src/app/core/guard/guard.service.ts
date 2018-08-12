@@ -43,6 +43,7 @@ export class GuardService implements CanActivate {
           console.log('Complete');
         });
     });
+
   }
 
 }
