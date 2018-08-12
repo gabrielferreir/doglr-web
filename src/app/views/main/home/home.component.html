@@ -17,7 +17,7 @@
       <ui-tabs-pages #tabsPages [tabs]="tabs">
         <div class="page">
           <div *ngIf="tabsPages.currentPage === 1">
-            <ui-card-content>
+            <ui-card-content style="padding: 16px 8px">
               <app-card-animal *ngFor="let animal of animals" [info]="animal"></app-card-animal>
             </ui-card-content>
 
