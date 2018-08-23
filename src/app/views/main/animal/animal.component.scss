@@ -1,0 +1,39 @@
+.image-post {
+  width: 100%;
+  height: auto;
+}
+
+.header-descricao {
+  display: flex;
+  justify-content: space-around;
+
+  &__item {
+    text-align: center;
+
+    &__title {
+      display: block;
+      width: 100%;
+      font-weight: 500;
+    }
+    &__subtitle {
+      display: block;
+      width: 100%;
+    }
+
+  }
+}
+
+.content-descricao {
+
+  &__title {
+    font-weight: 500;
+    font-size: 14px;
+    margin-top: 16px;
+  }
+
+  &__description {
+    font-size: 14px;
+    margin: 8px 0;
+  }
+
+}

@@ -12,22 +12,92 @@
       <span class="title">Animal</span>
     </ui-toolbar>
 
-    <ui-tabs-pages #images (click)="nextImage()" *ngIf="info">
+    <ui-tabs-pages #images (click)="nextImage()" *ngIf="readyToLoadingImages">
       <div class="page" *ngFor="let image of info.images; let index = index">
         <div *ngIf="images.currentPage === (index + 1)">
-          <ui-card-content style="padding: 16px 8px">
-            {{ image | json}}
-
-            <p>TESTE</p>
-            <br>
-            <br>
-            <br>
-            <br>
+          <ui-card-content style="padding: 0;">
+            <img src="https://picsum.photos/200/300/?random" class="image-post"/>
           </ui-card-content>
 
         </div>
       </div>
     </ui-tabs-pages>
 
+    <ui-tabs class="no-padding primary" #tabAnimal>
+      <div class="tab selected" uiRipple (click)="tabsPages.pagesGoToPage(1)">
+        Informações
+      </div>
+      <div class="tab" uiRipple (click)="tabsPages.pagesGoToPage(2)">
+        Contato
+      </div>
+    </ui-tabs>
+
+    <ui-tabs-pages #tabsPages [tabs]="tabAnimal">
+      <div class="page">
+        <ui-card-content>
+          <header class="header-descricao">
+
+            <section class="header-descricao__item">
+              <span class="header-descricao__item__title">Nome</span>
+              <span class="header-descricao__item__subtitle">{{ info.title }}</span>
+            </section>
+
+            <section class="header-descricao__item">
+              <span class="header-descricao__item__title">Raça</span>
+              <span class="header-descricao__item__subtitle">{{ info.breed }}</span>
+            </section>
+
+            <section class="header-descricao__item">
+              <span class="header-descricao__item__title">Idade</span>
+              <span class="header-descricao__item__subtitle">{{ info.age }} meses</span>
+            </section>
+
+          </header>
+
+          <main class="content-descricao">
+            <h3 class="content-descricao__title">Descrição</h3>
+            <p class="content-descricao__description">{{ info.description }}</p>
+          </main>
+
+        </ui-card-content>
+      </div>
+      <div class="page">
+        <ul class="ui-list">
+
+          <li class="ui-list-item multi-line">
+            <div class="icon">
+              <i class="material-icons">phone</i>
+            </div>
+
+            <div class="lines">
+
+              <div class="primary">Telefone</div>
+
+              <div class="secondary">{{ info.telefone | uiPhone }}</div>
+
+            </div>
+          </li>
+
+          <li class="ui-list-item multi-line">
+            <div class="icon">
+              <i class="material-icons">location_on</i>
+            </div>
+
+            <div class="lines">
+
+              <div class="primary">Endereço</div>
+
+              <div class="secondary">{{ info.rua + ', ' + info.numero + ' - ' + info.bairro + ', ' + info.cidade + ' - ' + info.uf + ', ' + info.cep }}</div>
+
+            </div>
+          </li>
+
+
+        </ul>
+      </div>
+    </ui-tabs-pages>
+
   </ui-card>
+
+  <div style="height: 80px;"></div>
 </div>

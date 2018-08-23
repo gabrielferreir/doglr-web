@@ -10,14 +10,16 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./animal.component.scss']
 })
 export class AnimalComponent implements OnInit {
-  loading: boolean = true;
-  info: {};
+  loading: boolean;
+  readyToLoadingImages: boolean;
+  info: any;
 
   @ViewChild('images') images;
 
   constructor(public _location: Location,
               private _api: ApiService,
               private _route: ActivatedRoute) {
+    this.info = {};
   }
 
   ngOnInit() {
@@ -36,6 +38,7 @@ export class AnimalComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
         this.info = res.content;
+        this.readyToLoadingImages = true;
       }, err => {
         console.log(err);
 
