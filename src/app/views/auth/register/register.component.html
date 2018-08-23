@@ -74,7 +74,8 @@
             <input id="phone" #inputPhone="ngModel" type="tel"
                    [(ngModel)]="info.phone"
                    uiInput
-                   name="phone">
+                   name="phone"
+                   uiMaskPhone>
             <label for="phone">Telefone</label>
             <div class="ui-messages">
               <div *ngIf="inputPhone.errors && inputPhone.dirty">
