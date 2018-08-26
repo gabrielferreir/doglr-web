@@ -1,0 +1,15 @@
+<ui-tabs-pages #images>
+
+  <div class="page" *ngFor="let image of slide; let index = index">
+
+    <div *ngIf="images.currentPage === (index + 1)">
+
+      <ui-card-content style="padding: 0;">
+        <img [src]="pathImages + image.path" class="image-post"/>
+      </ui-card-content>
+
+    </div>
+
+  </div>
+
+</ui-tabs-pages>

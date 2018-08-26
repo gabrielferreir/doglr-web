@@ -2,11 +2,11 @@
 
   <section class="card-animal__image"
            [ngStyle]="
-           {'background-image': info.image ?
-           'url(../../../../assets/image-animals/' + info.image + ')' :
+           {'background-image': pathImage ?
+           'url(' + pathImage + ')' :
             'url(../../../../assets/image-animals/no-image.svg)',
-            'backgroundSize': info.image ? '100% 100%' : '50% 50%',
-            'background-color':  info.image ? '#EEE' : 'transparent'
+            'backgroundSize': 'cover',
+            'background-color':  pathImage ? '#EEE' : 'transparent'
             }
 ">
     <!--<img *ngIf="info.image" [src]="'../../../../assets/image-animals/' + info.image"/>-->

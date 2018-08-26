@@ -1,5 +1,6 @@
 <div class="ui-s960">
   <ui-card class="elevate-on-toolbar" [class.loading]="loading">
+
     <div class="ui-progress" [class.hide]="!loading">
       <div class="indeterminate"></div>
     </div>
@@ -12,27 +13,19 @@
       <span class="title">Animal</span>
     </ui-toolbar>
 
-    <ui-tabs-pages #images (click)="nextImage()" *ngIf="readyToLoadingImages">
-      <div class="page" *ngFor="let image of info.images; let index = index">
-        <div *ngIf="images.currentPage === (index + 1)">
-          <ui-card-content style="padding: 0;">
-            <img src="https://picsum.photos/200/300/?random" class="image-post"/>
-          </ui-card-content>
 
-        </div>
-      </div>
-    </ui-tabs-pages>
+    <app-slide [slide]="slide"></app-slide>
 
     <ui-tabs class="no-padding primary" #tabAnimal>
-      <div class="tab selected" uiRipple (click)="tabsPages.pagesGoToPage(1)">
+      <div class="tab selected" uiRipple (click)="animals.pagesGoToPage(1)">
         Informações
       </div>
-      <div class="tab" uiRipple (click)="tabsPages.pagesGoToPage(2)">
+      <div class="tab" uiRipple (click)="animals.pagesGoToPage(2)">
         Contato
       </div>
     </ui-tabs>
 
-    <ui-tabs-pages #tabsPages [tabs]="tabAnimal">
+    <ui-tabs-pages #animals [tabs]="tabAnimal">
       <div class="page">
         <ui-card-content>
           <header class="header-descricao">
@@ -87,7 +80,9 @@
 
               <div class="primary">Endereço</div>
 
-              <div class="secondary">{{ info.rua + ', ' + info.numero + ' - ' + info.bairro + ', ' + info.cidade + ' - ' + info.uf + ', ' + info.cep }}</div>
+              <div class="secondary">{{ info.rua + ', ' + info.numero + ' - ' + info.bairro + ', ' + info.cidade + ' - '
+                + info.uf + ', ' + info.cep }}
+              </div>
 
             </div>
           </li>

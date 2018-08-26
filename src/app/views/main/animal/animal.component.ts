@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Location} from '@angular/common';
-import {environment} from '../../../../environments/environment';
 import {ApiService} from '../../../core/api/api.service';
 import {ActivatedRoute} from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-animal',
@@ -11,8 +11,11 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class AnimalComponent implements OnInit {
   loading: boolean;
-  readyToLoadingImages: boolean;
   info: any;
+
+  pathImages: string;
+
+  slide: any;
 
   @ViewChild('images') images;
 
@@ -20,17 +23,18 @@ export class AnimalComponent implements OnInit {
               private _api: ApiService,
               private _route: ActivatedRoute) {
     this.info = {};
+    this.pathImages = `${environment.API}/animals/`;
   }
 
   ngOnInit() {
-    console.log('Route', this._route.snapshot.params.id);
     this.get();
   }
 
   nextImage() {
-    const totalPages = this.images.element.nativeElement.querySelectorAll('.page').length;
-    const nextPage = this.images.currentPage < totalPages ? this.images.currentPage + 1 : 1;
-    this.images.pagesGoToPage(nextPage);
+    console.log('AA');
+    // const totalPages = this.images.element.nativeElement.querySelectorAll('.page').length;
+    // const nextPage = this.images.currentPage < totalPages ? this.images.currentPage + 1 : 1;
+    // this.images.pagesGoToPage(nextPage);
   }
 
   get() {
@@ -38,11 +42,11 @@ export class AnimalComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
         this.info = res.content;
-        this.readyToLoadingImages = true;
       }, err => {
         console.log(err);
 
       }, () => {
+        this.slide = this.info.images;
         this.loading = false;
       });
   }
