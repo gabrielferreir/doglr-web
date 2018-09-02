@@ -5,10 +5,10 @@
         <div class="tab selected" uiRipple (click)="tabsPages.pagesGoToPage(1)">
           Todos
         </div>
-        <div class="tab" uiRipple (click)="tabsPages.pagesGoToPage(2)">
+        <div class="tab" uiRipple (click)="tabsPages.pagesGoToPage(2); getAnimals('C');">
           Cachorros
         </div>
-        <div class="tab" uiRipple (click)="tabsPages.pagesGoToPage(3)">
+        <div class="tab" uiRipple (click)="tabsPages.pagesGoToPage(3); getAnimals('G');">
           Gatos
         </div>
       </ui-tabs>

@@ -9,7 +9,7 @@ import {ApiService} from '../../../core/api/api.service';
 })
 export class HomeComponent implements OnInit {
 
-  animals: any[];
+  animals: any;
 
   joaquina = {
     id: 'dnhsjdba',
@@ -24,10 +24,11 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAnimals();
+    this.getAnimals(null);
   }
 
-  getAnimals() {
+  getAnimals(type) {
+    // this._api.request('GET', `${environment.API}/animals${type ? '?tipo=' + type : ''}`, {})
     this._api.request('GET', `${environment.API}/animals`, {})
       .subscribe(res => {
         console.log(res);
