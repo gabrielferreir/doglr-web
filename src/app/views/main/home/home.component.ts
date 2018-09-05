@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getAnimals(type) {
-    this._api.request('GET', `${environment.API}/animal${type ? '?tipo=' + type : ''}`, {})
+    this._api.request('GET', `${environment.API}/animals${type ? '?tipo=' + type : ''}`, {})
       .subscribe(res => {
         console.log(res);
         if (type && type.toUpperCase() === 'C') {
