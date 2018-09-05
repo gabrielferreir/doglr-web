@@ -1,5 +1,5 @@
 <div class="ui-s960">
-  <ui-card>
+      <ui-card class="elevate-on-toolbar">
     <div>
       <ui-tabs class="no-padding primary" #tabs>
         <div class="tab selected" uiRipple (click)="tabsPages.pagesGoToPage(1)">
@@ -26,14 +26,14 @@
         <div class="page">
           <div *ngIf="tabsPages.currentPage === 2">
             <ui-card-content>
-              <app-card-animal [info]="joaquina"></app-card-animal>
+              <app-card-animal *ngFor="let animal of animalsDog" [info]="animal"></app-card-animal>
             </ui-card-content>
           </div>
         </div>
         <div class="page">
           <div *ngIf="tabsPages.currentPage === 3">
             <ui-card-content>
-              <app-card-animal [info]="joaquina"></app-card-animal>
+              <app-card-animal *ngFor="let animal of animalsCat" [info]="animal"></app-card-animal>
             </ui-card-content>
           </div>
         </div>

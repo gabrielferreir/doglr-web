@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { environment} from '../../../../environments/environment';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-card-animal',
@@ -11,10 +11,11 @@ export class CardAnimalComponent implements OnInit {
   @Input('info') info: any;
   pathImage: string;
 
-  constructor() {}
+  constructor() {
+  }
 
   ngOnInit() {
-    this.pathImage = this.info.images && this.info.images[0] ? `${environment.API}/animals/${this.info.images[0].path}` : null;
+    this.pathImage = this.info.images && this.info.images[0] ? `${environment.API}/images/photos_animals/${this.info.images[0].path}` : null;
     console.log(this.pathImage);
   }
 

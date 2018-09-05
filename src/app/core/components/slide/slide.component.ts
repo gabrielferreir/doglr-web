@@ -13,7 +13,7 @@ export class SlideComponent implements OnInit {
 
   constructor() {
     this.slide = !this.slide ? null : this.slide;
-    this.pathImages = `${environment.API}/animals/`;
+    this.pathImages = `${environment.API}/images/photos_animals/`;
   }
 
   ngOnInit() {

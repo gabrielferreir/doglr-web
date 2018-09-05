@@ -4,6 +4,7 @@ import {SharedModule} from '../../shared.module';
 import {HomeModule} from './home/home.module';
 import { AnimalComponent } from './animal/animal.component';
 import {SlideModule} from '../../core/components/slide/slide.module';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   imports: [
@@ -11,7 +12,7 @@ import {SlideModule} from '../../core/components/slide/slide.module';
     HomeModule,
     SlideModule
   ],
-  declarations: [MainComponent, AnimalComponent],
+  declarations: [MainComponent, AnimalComponent, RegisterComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA]
 })
 export class MainModule { }

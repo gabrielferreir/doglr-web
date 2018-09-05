@@ -1,6 +1,7 @@
-.image-post {
-  width: 100%;
+/deep/ .image-post {
+  //width: 100%;
   height: auto;
+  max-height: 500px;
 }
 
 .header-descricao {
