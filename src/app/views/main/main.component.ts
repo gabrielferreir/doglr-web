@@ -23,6 +23,11 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.toolbarService.registerMainToolbar(document.getElementById('app-header'));
+
+    this.toolbarService.change.subscribe(title => {
+      this.title = title;
+    });
+
   }
 
   logoff() {
@@ -31,9 +36,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.toolbarService.change.subscribe(title => {
-      this.title = title;
-    });
+
   }
 
 

@@ -1,3 +1,38 @@
-<p>
-  register works!
-</p>
+<div class="ui-s960">
+  <ui-card class="elevate-on-toolbar" [class.loading]="loading">
+
+    <div class="ui-progress" [class.hide]="!loading">
+      <div class="indeterminate"></div>
+    </div>
+
+
+    <ui-toolbar class="flat">
+      <button class="ui-button flat icon" type="button" uiRipple (click)="_location.back()">
+        <i class="material-icons">arrow_back</i>
+      </button>
+      <span class="title">Cadastrar animal</span>
+    </ui-toolbar>
+
+
+    <div class="ui-flex-container break-on-s600">
+      <ui-card-content>
+        <fieldset [disabled]="saving || deleting">
+          <form #form="ngForm" class="ui-validate on-dirty on-submit">
+
+            <ui-input-container>
+              <input id="title" #inputTitle="ngModel" type="text"
+                     [(ngModel)]="info.title"
+                     uiInput
+                     name="title"
+                     required>
+              <label for="title">Nome</label>
+            </ui-input-container>
+
+          </form>
+        </fieldset>
+      </ui-card-content>
+    </div>
+
+
+  </ui-card>
+</div>
