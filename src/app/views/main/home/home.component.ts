@@ -14,21 +14,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   animalsDog: any;
   animalsCat: any;
 
-  joaquina = {
-    id: 'dnhsjdba',
-    name: 'Joaquina',
-    age: '3 anos',
-    breed: 'Vira-lata',
-    image: 'joaquina.png',
-    visualizacoes: 26
-  };
-
   constructor(private _api: ApiService,
               private toolbarService: UiToolbarService) {
   }
 
   ngOnInit() {
-    this.getAnimals(null);
+    this.getAnimals('');
   }
 
   ngAfterViewInit() {

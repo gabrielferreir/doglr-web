@@ -14,10 +14,47 @@
     </ui-toolbar>
 
 
-    <div class="ui-flex-container break-on-s960">
-      <ui-card-content>
-        <fieldset [disabled]="saving || deleting">
-          <form #form="ngForm" class="ui-validate on-dirty on-submit">
+    <ui-card-content>
+      <fieldset [disabled]="saving || deleting">
+        <form #form="ngForm" class="ui-validate on-dirty on-submit">
+
+          <section class="images">
+
+            <div class="images__wrapper"
+                 *ngFor="let image of info.imagem; let index = index"
+                 [hidden]="image.removed">
+
+              <div class="images__image">
+                <img class="images__src" [src]="image.src || image.base64"/>
+              </div>
+              <div class="images__remove" (click)="removeImage(index)">
+                <i class="material-icons">remove</i>
+              </div>
+            </div>
+
+            <div class="images__wrapper">
+              <div class="images__image" (click)="openExplorer()">
+                <div class="images__add">
+                  <i class="material-icons">add</i>
+                </div>
+              </div>
+            </div>
+
+            <input type="file"
+                   name="input"
+                   uiInputFile
+                   [(ngModel)]="info.imagemPath"
+                   [read]="changeImagem.bind(this)"
+                   [error]="changeImagemError.bind(this)"
+                   #inputNovaImagem
+                   #fieldNovaImagem="ngModel"
+                   accept="jpg,jpeg,png"
+                   max-file-size="15MB"
+                   hidden>
+
+          </section>
+
+          <div class="ui-flex-container break-on-s960">
 
             <ui-input-container>
               <input id="title" #inputTitle="ngModel" type="text"
@@ -26,13 +63,341 @@
                      name="title"
                      required>
               <label for="title">Nome</label>
+              <div class="ui-messages">
+                <div *ngIf="inputTitle.errors && inputTitle.dirty">
+                  <div class="ui-message error"
+                       [hidden]="!inputTitle.pristine && !inputTitle.errors.required">
+                    Digite o nome
+                  </div>
+                </div>
+              </div>
             </ui-input-container>
 
-          </form>
-        </fieldset>
-      </ui-card-content>
-    </div>
+          </div>
+
+          <div class="ui-flex-container break-on-s960">
+
+            <ui-input-container>
+            <textarea id="descricao" [(ngModel)]="info.description" name="descricao"
+                      rows="1" uiInput
+                      autosize
+                      uiMaxlength="1000"
+                      required
+                      #inputDescricao="ngModel"></textarea>
+              <label for="descricao">Descrição</label>
+              <div class="ui-messages">
+
+                <div *ngIf="inputDescricao.errors && inputDescricao.dirty">
+                  <div class="ui-message error"
+                       [hidden]="!inputDescricao.pristine && !inputDescricao.errors.required">
+                    Digite uma descrição
+                  </div>
+                </div>
+
+                <div class="ui-message counter"
+                     [class.error]="inputDescricao.errors && inputDescricao.errors.uiMaxlength">
+                  {{info.descricao ? info.descricao.length : 0}}/200
+                </div>
+              </div>
+            </ui-input-container>
+
+          </div>
+
+          <div class="ui-flex-container break-on-s960">
+
+            <ui-input-container>
+              <ui-select #inputType="ngModel"
+                         name="type"
+                         [(ngModel)]="info.type"
+                         [options]="typeOptions.registros"
+                         value="id"
+                         label="nome"
+                         uiInput
+                         required
+                         id="type"></ui-select>
+              <label for="type">
+                {{ !typeOptions.carregando && typeOptions.carregado ? 'Tipo' : 'Carregando tipos'}}
+              </label>
+              <div class="ui-messages">
+                <div *ngIf="inputType.errors && inputType.dirty">
+                  <div class="ui-message error"
+                       [hidden]="!inputType.pristine && !inputType.errors.required">
+                    Escolha um tipo
+                  </div>
+                </div>
+              </div>
+            </ui-input-container>
+
+            <ui-input-container>
+              <ui-select #inputSexo="ngModel"
+                         name="sexo"
+                         [(ngModel)]="info.sexo"
+                         [options]="sexoOptions.registros"
+                         value="id"
+                         label="nome"
+                         uiInput
+                         required
+                         id="sexo"></ui-select>
+              <label for="type">
+                {{ !sexoOptions.carregando && sexoOptions.carregado ? 'Sexo' : 'Carregando sexos'}}
+              </label>
+              <div class="ui-messages">
+                <div *ngIf="inputSexo.errors && inputSexo.dirty">
+                  <div class="ui-message error"
+                       [hidden]="!inputSexo.pristine && !inputSexo.errors.required">
+                    Selecione o sexo
+                  </div>
+                </div>
+              </div>
+            </ui-input-container>
+
+            <ui-input-container>
+              <input id="age" #inputAge="ngModel" type="text"
+                     [(ngModel)]="info.age"
+                     uiInput
+                     uiMaskInteger
+                     placeholder="Em meses"
+                     name="age"
+                     required>
+              <label for="age">Idade</label>
+
+              <div class="ui-messages">
+                <div *ngIf="inputAge.errors && inputAge.dirty">
+                  <div class="ui-message error"
+                       [hidden]="!inputAge.pristine && !inputAge.errors.required">
+                    Digite a idade
+                  </div>
+                </div>
+              </div>
+            </ui-input-container>
+
+          </div>
+
+          <div class="ui-flex-container break-on-s960">
+
+            <ui-input-container>
+              <ui-select #inputPorte="ngModel"
+                         name="porte"
+                         [(ngModel)]="info.porte"
+                         [options]="porteOptions.registros"
+                         value="id"
+                         label="nome"
+                         uiInput
+                         required
+                         id="porte"></ui-select>
+              <label for="type">
+                {{ !porteOptions.carregando && porteOptions.carregado ? 'Porte' : 'Carregando portes'}}
+              </label>
+              <div class="ui-messages">
+                <div *ngIf="inputPorte.errors && inputPorte.dirty">
+                  <div class="ui-message error"
+                       [hidden]="!inputPorte.pristine && !inputPorte.errors.required">
+                    Selecione o porte
+                  </div>
+                </div>
+              </div>
+            </ui-input-container>
+
+            <ui-input-container>
+              <ui-select #inputBreed="ngModel"
+                         name="type"
+                         [(ngModel)]="info.breed"
+                         [options]="breedOptions.registros"
+                         value="id"
+                         label="nome"
+                         uiInput
+                         required
+                         id="breed"></ui-select>
+              <label for="type">
+                {{ !breedOptions.carregando && breedOptions.carregado ? 'Raça' : 'Carregando raças'}}
+              </label>
+              <div class="ui-messages">
+                <div *ngIf="inputBreed.errors && inputBreed.dirty">
+                  <div class="ui-message error"
+                       [hidden]="!inputBreed.pristine && !inputBreed.errors.required">
+                    Selecione a raça
+                  </div>
+                </div>
+              </div>
+            </ui-input-container>
+
+            <ui-input-container>
+              <ui-select #inputTemperament="ngModel"
+                         name="type"
+                         [(ngModel)]="info.temperament"
+                         [options]="temperamentOptions.registros"
+                         value="id"
+                         label="nome"
+                         uiInput
+                         required
+                         id="temperament"></ui-select>
+              <label for="type">
+                {{ !temperamentOptions.carregando && temperamentOptions.carregado ? 'Temperamento' : 'Carregando
+                temperamentos' }}
+              </label>
+              <div class="ui-messages">
+                <div *ngIf="inputTemperament.errors && inputTemperament.dirty">
+                  <div class="ui-message error"
+                       [hidden]="!inputTemperament.pristine && !inputTemperament.errors.required">
+                    Selecione o temperamento
+                  </div>
+                </div>
+              </div>
+            </ui-input-container>
+
+          </div>
+
+          <ui-subheader>Informações de contato</ui-subheader>
+          <div class="ui-flex-container break-on-s960">
+
+            <ui-input-container>
+              <input id="cep" #inputCep="ngModel" type="text"
+                     [(ngModel)]="info.cep"
+                     uiInput
+                     name="cep"
+                     required>
+              <label for="cep">CEP</label>
+              <div class="icon">
+                <i class="material-icons">search</i>
+              </div>
+              <div class="ui-messages">
+                <div *ngIf="inputCep.errors && inputCep.dirty">
+                  <div class="ui-message error"
+                       [hidden]="!inputCep.pristine && !inputCep.errors.required">
+                    Digite o CEP
+                  </div>
+                </div>
+              </div>
+            </ui-input-container>
+
+            <ui-input-container>
+              <input id="rua" #inputRua="ngModel" type="text"
+                     [(ngModel)]="info.rua"
+                     uiInput
+                     name="rua"
+                     required>
+              <label for="rua">Rua</label>
+              <div class="ui-messages">
+                <div *ngIf="inputRua.errors && inputRua.dirty">
+                  <div class="ui-message error"
+                       [hidden]="!inputRua.pristine && !inputRua.errors.required">
+                    Digite o CEP
+                  </div>
+                </div>
+              </div>
+            </ui-input-container>
+
+            <ui-input-container>
+              <input id="numero" #inputNumero="ngModel" type="text"
+                     [(ngModel)]="info.numero"
+                     uiInput
+                     name="numero"
+                     required>
+              <label for="numero">Numero</label>
+              <div class="ui-messages">
+                <div *ngIf="inputNumero.errors && inputNumero.dirty">
+                  <div class="ui-message error"
+                       [hidden]="!inputNumero.pristine && !inputNumero.errors.required">
+                    Digite o CEP
+                  </div>
+                </div>
+              </div>
+            </ui-input-container>
+
+          </div>
+
+          <div class="ui-flex-container break-on-s960">
+
+            <ui-input-container>
+              <input id="bairro" #inputBairro="ngModel" type="text"
+                     [(ngModel)]="info.bairro"
+                     uiInput
+                     name="bairro"
+                     required>
+              <label for="bairro">Bairro</label>
+              <div class="ui-messages">
+                <div *ngIf="inputBairro.errors && inputBairro.dirty">
+                  <div class="ui-message error"
+                       [hidden]="!inputBairro.pristine && !inputBairro.errors.required">
+                    Digite o CEP
+                  </div>
+                </div>
+              </div>
+            </ui-input-container>
+
+            <ui-input-container>
+              <input id="cidade" #inputCidade="ngModel" type="text"
+                     [(ngModel)]="info.cidade"
+                     uiInput
+                     name="cidade"
+                     required>
+              <label for="cidade">Cidade</label>
+              <div class="ui-messages">
+                <div *ngIf="inputCidade.errors && inputCidade.dirty">
+                  <div class="ui-message error"
+                       [hidden]="!inputCidade.pristine && !inputCidade.errors.required">
+                    Digite o CEP
+                  </div>
+                </div>
+              </div>
+            </ui-input-container>
+
+            <ui-input-container>
+              <input id="uf" #inputUf="ngModel" type="text"
+                     [(ngModel)]="info.uf"
+                     uiInput
+                     name="uf"
+                     required>
+              <label for="uf">UF</label>
+              <div class="ui-messages">
+                <div *ngIf="inputUf.errors && inputUf.dirty">
+                  <div class="ui-message error"
+                       [hidden]="!inputUf.pristine && !inputUf.errors.required">
+                    Digite o CEP
+                  </div>
+                </div>
+              </div>
+            </ui-input-container>
+
+          </div>
+
+          <div class="ui-flex-container break-on-s960">
+
+            <ui-input-container>
+              <input id="telefone" #inputTelefone="ngModel" type="text"
+                     uiMaskPhone
+                     [(ngModel)]="info.telefone"
+                     uiInput
+                     name="telefone"
+                     required>
+              <label for="telefone">Telefone de contato</label>
+              <div class="ui-messages">
+                <div *ngIf="inputTelefone.errors && inputTelefone.dirty">
+                  <div class="ui-message error"
+                       [hidden]="!inputTelefone.pristine && !inputTelefone.errors.required">
+                    Digite o telefone
+                  </div>
+                </div>
+              </div>
+            </ui-input-container>
+
+          </div>
+
+        </form>
+      </fieldset>
+    </ui-card-content>
 
 
   </ui-card>
+
+  <div class="ui-fab-container">
+    <button class="ui-button success fab" uiRipple type="button"
+            (click)="onSubmit(form)">
+      <ui-progress-radial class="indeterminate" *ngIf="saving"></ui-progress-radial>
+      <i class="material-icons">check</i>
+    </button>
+  </div>
+
+
+  <div style="height: 80px"></div>
 </div>
