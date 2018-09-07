@@ -1,4 +1,4 @@
-<section class="card-animal" uiRipple [routerLink]="'/animal/' + info.id">
+<section class="card-animal" uiRipple [routerLink]="editing ? '/update-animal/' + info.id : '/animal/' + info.id">
 
   <section class="card-animal__image"
            [ngStyle]="

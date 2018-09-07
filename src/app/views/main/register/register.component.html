@@ -21,11 +21,11 @@
           <section class="images">
 
             <div class="images__wrapper"
-                 *ngFor="let image of info.imagem; let index = index"
+                 *ngFor="let image of info.images; let index = index"
                  [hidden]="image.removed">
 
               <div class="images__image">
-                <img class="images__src" [src]="image.src || image.base64"/>
+                <img class="images__src" [src]="image.path ? PATH + image.path : image.base64"/>
               </div>
               <div class="images__remove" (click)="removeImage(index)">
                 <i class="material-icons">remove</i>
@@ -96,7 +96,7 @@
 
                 <div class="ui-message counter"
                      [class.error]="inputDescricao.errors && inputDescricao.errors.uiMaxlength">
-                  {{info.descricao ? info.descricao.length : 0}}/200
+                  {{info.description ? info.description.length : 0}}/1000
                 </div>
               </div>
             </ui-input-container>
@@ -254,6 +254,7 @@
               <input id="cep" #inputCep="ngModel" type="text"
                      [(ngModel)]="info.cep"
                      uiInput
+                     uiMaskCep
                      name="cep"
                      required>
               <label for="cep">CEP</label>
@@ -397,6 +398,8 @@
       <i class="material-icons">check</i>
     </button>
   </div>
+
+  {{ info | json }}
 
 
   <div style="height: 80px"></div>

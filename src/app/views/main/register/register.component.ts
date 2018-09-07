@@ -4,7 +4,8 @@ import {Location} from '@angular/common';
 import {environment} from '../../../../environments/environment';
 import {ApiService} from '../../../core/api/api.service';
 import {UserService} from '../../../core/user/user.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router, RouterLinkActive} from '@angular/router';
+import {isNumber} from 'util';
 
 @Component({
   selector: 'app-register',
@@ -24,6 +25,9 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
   saving: boolean;
   addingNew: boolean;
 
+  PATH = environment.API + environment.PATH_ANIMAL_IMAGES;
+
+
   @ViewChild('inputNovaImagem') inputNovaImagem;
 
   constructor(private toolbarService: UiToolbarService,
@@ -31,9 +35,10 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
               private element: ElementRef,
               private _api: ApiService,
               private _user: UserService,
-              private router: Router) {
+              private router: Router,
+              private _route: ActivatedRoute) {
     this.info = {
-      imagem: []
+      images: []
     };
 
     this.typeOptions = {
@@ -75,6 +80,15 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    if (this._route.snapshot.params['id']) {
+      console.log('Editando');
+      this.addingNew = false;
+      this.getAnimal();
+    } else {
+      console.log('Adicionando');
+      this.addingNew = true;
+    }
   }
 
   ngAfterViewInit() {
@@ -87,14 +101,13 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openExplorer() {
-    // const button = <any>document.querySelector('#file');
     this.inputNovaImagem.nativeElement.click();
-    // button.click();
   }
 
   changeImagem(file, base64) {
-    this.info.imagem.push({
-      base64: base64
+    this.info.images.push({
+      base64: base64,
+      adding: true
     });
   }
 
@@ -123,12 +136,12 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   removeImage(index) {
-    if (this.info.imagem[index].src) {
-      this.info.imagem[index].removed = true;
+    if (this.info.images[index].path) {
+      this.info.images[index].removed = true;
     } else {
-      this.info.imagem.splice(index, 1);
+      this.info.images.splice(index, 1);
     }
-    console.log(this.info.imagem);
+    console.log(this.info.images);
   }
 
   onSubmit(form) {
@@ -150,27 +163,65 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.correction();
 
-      this._api.request('POST', `${environment.API}/animals`, {
-        body: this.info,
-        headers: {
-          authentication: this._user.getToken()
-        }
-      })
-        .subscribe(res => {
-          console.log(res);
-          this.router.navigate(['/']);
-        }, err => {
-          console.log(err);
-        }, () => {
-
-        });
+      if(this.addingNew) {
+        this.register();
+      } else {
+        this.update();
+      }
 
     }
   }
 
+  register() {
+    this._api.request('POST', `${environment.API}/animals`, {
+      body: this.info,
+      headers: {
+        authentication: this._user.getToken()
+      }
+    })
+      .subscribe(res => {
+        console.log(res);
+        this.router.navigate(['/my-animals']);
+      }, err => {
+        console.log(err);
+      }, () => {
+
+      });
+  }
+
+  update() {
+    this._api.request('PUT', `${environment.API}/animals/${this._route.snapshot.params['id']}`, {
+      body: this.info,
+      headers: {
+        authentication: this._user.getToken()
+      }
+    })
+      .subscribe(res => {
+        console.log(res);
+        this.router.navigate(['/my-animals']);
+      }, err => {
+        console.log(err);
+      }, () => {
+
+      });
+  }
   correction() {
-    this.info.cep = parseInt(this.info.cep.replace('-', ''), 10);
+    console.log(this.info.cep);
+    this.info.cep = isNumber(this.info.cep) ? this.info.cep : parseInt(this.info.cep.replace('-', ''), 10);
     this.info.age = parseInt(this.info.age, 10);
+    this.info.numero = this.info.numero.toString();
+  }
+
+  getAnimal() {
+    this._api.request('GET', `${environment.API}/animals/${this._route.snapshot.params.id}`, {})
+      .subscribe(res => {
+        console.log(res);
+        this.info = res.content;
+      }, err => {
+        console.log(err);
+
+      }, () => {
+      });
   }
 
 }

@@ -18,14 +18,12 @@ export class GuardService implements CanActivate {
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     const user = <any>this._user.getUser();
     // VERIFIQUE PELO LOGIN
-    console.log(user);
     return user.id ? true : this.remake();
   }
 
   remake() {
     return new Promise<boolean>(resolve => {
       const cookies = this._user.getCookie().authentication;
-      console.log(cookies);
       if (!cookies) {
         this.router.navigate(['/login']);
         resolve(false);
@@ -40,7 +38,6 @@ export class GuardService implements CanActivate {
           resolve(false);
           this.router.navigate(['/login']);
         }, () => {
-          console.log('Complete');
         });
     });
 

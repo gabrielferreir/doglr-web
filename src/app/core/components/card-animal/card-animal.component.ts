@@ -9,6 +9,7 @@ import {environment} from '../../../../environments/environment';
 export class CardAnimalComponent implements OnInit {
 
   @Input('info') info: any;
+  @Input('editing') editing: boolean;
   pathImage: string;
 
   constructor() {
