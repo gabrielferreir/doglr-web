@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {UiCookie} from 'ng-smn-ui';
+import {Subject} from 'rxjs';
 
 @Injectable()
 export class UserService {
   token: string;
-  user = {};
+  user = new Subject();
   COOKIE_NAME = {
     authentication: `${environment.system}Authentication`
   };
@@ -18,7 +19,7 @@ export class UserService {
   }
 
   setUser(user) {
-    this.user = user;
+    this.user.next(user);
   }
 
   getToken() {

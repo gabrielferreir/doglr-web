@@ -39,16 +39,12 @@ export class RegisterComponent implements OnInit {
     this._api.request('POST', `${environment.API}/user`, {
       body: this.info
     }).subscribe(response => {
-      console.log(response);
-      // const content = response.content;
-
       this._router.navigate(['/login']);
       UiSnackbar.show({
         text: 'Usuario cadastrado com sucesso'
       });
 
     }, err => {
-      console.log(err);
       if (err.status === 409) {
         if (err.error.executionCode === 1) {
           form.controls.email.setErrors({usedEmail: true});

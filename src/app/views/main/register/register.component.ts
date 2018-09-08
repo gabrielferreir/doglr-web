@@ -82,11 +82,9 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
 
     if (this._route.snapshot.params['id']) {
-      console.log('Editando');
       this.addingNew = false;
       this.getAnimal();
     } else {
-      console.log('Adicionando');
       this.addingNew = true;
     }
   }
@@ -141,7 +139,6 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.info.images.splice(index, 1);
     }
-    console.log(this.info.images);
   }
 
   onSubmit(form) {
@@ -180,10 +177,9 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     })
       .subscribe(res => {
-        console.log(res);
         this.router.navigate(['/my-animals']);
       }, err => {
-        console.log(err);
+        console.error(err);
       }, () => {
 
       });
@@ -197,16 +193,14 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     })
       .subscribe(res => {
-        console.log(res);
         this.router.navigate(['/my-animals']);
       }, err => {
-        console.log(err);
+        console.error(err);
       }, () => {
 
       });
   }
   correction() {
-    console.log(this.info.cep);
     this.info.cep = isNumber(this.info.cep) ? this.info.cep : parseInt(this.info.cep.replace('-', ''), 10);
     this.info.age = parseInt(this.info.age, 10);
     this.info.numero = this.info.numero.toString();
@@ -215,11 +209,9 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
   getAnimal() {
     this._api.request('GET', `${environment.API}/animals/${this._route.snapshot.params.id}`, {})
       .subscribe(res => {
-        console.log(res);
         this.info = res.content;
       }, err => {
-        console.log(err);
-
+        console.error(err);
       }, () => {
       });
   }

@@ -42,20 +42,17 @@ export class AnimalComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   nextImage() {
-    console.log('AA');
-    // const totalPages = this.images.element.nativeElement.querySelectorAll('.page').length;
-    // const nextPage = this.images.currentPage < totalPages ? this.images.currentPage + 1 : 1;
-    // this.images.pagesGoToPage(nextPage);
+    const totalPages = this.images.element.nativeElement.querySelectorAll('.page').length;
+    const nextPage = this.images.currentPage < totalPages ? this.images.currentPage + 1 : 1;
+    this.images.pagesGoToPage(nextPage);
   }
 
   get() {
     this._api.request('GET', `${environment.API}/animals/${this._route.snapshot.params.id}`, {})
       .subscribe(res => {
-        console.log(res);
         this.info = res.content;
       }, err => {
-        console.log(err);
-
+        console.error(err);
       }, () => {
         this.slide = this.info.images;
         this.loading = false;

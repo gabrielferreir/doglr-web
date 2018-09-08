@@ -1,4 +1,4 @@
-<section class="card-animal" uiRipple [routerLink]="editing ? '/update-animal/' + info.id : '/animal/' + info.id">
+<section class="card-animal" (click)="open()">
 
   <section class="card-animal__image"
            [ngStyle]="
@@ -18,7 +18,7 @@
     <span class="card-animal__info__age">{{ info.age + ' anos' }}</span>
     <section class="card-animal__info__footer">
       <span>{{ info.views === 0 ? 'Sem visualições' : info.views === 1 ? info.views + ' visualização' : info.views + ' visualizações' }} </span>
-      <button class="ui-button flat primary no-padding">COMPARTILHAR</button>
+      <button class="ui-button flat primary no-padding" (click)="share($event, info.title, info.description, info.id)">COMPARTILHAR</button>
     </section>
 
   </section>

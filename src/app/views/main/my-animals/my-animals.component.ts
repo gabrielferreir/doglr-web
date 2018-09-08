@@ -40,11 +40,9 @@ export class MyAnimalsComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     })
       .subscribe(res => {
-        console.log(res);
         this.animals = res.content;
       }, err => {
-        console.log(err);
-
+        console.error(err);
       }, () => {
 
       });

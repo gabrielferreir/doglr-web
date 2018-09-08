@@ -23,9 +23,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(environment.API);
-
-    // this.login();
   }
 
   login(form) {
@@ -55,7 +52,7 @@ export class LoginComponent implements OnInit {
       this._router.navigate(['/']);
 
     }, err => {
-      console.log(err);
+      console.error(err);
 
       if (err.status = 404) {
         form.controls.pass.setErrors({wrong: true});
