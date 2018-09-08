@@ -10,12 +10,12 @@
       <button class="ui-button flat icon" type="button" uiRipple (click)="_location.back()">
         <i class="material-icons">arrow_back</i>
       </button>
-      <span class="title">Cadastrar animal</span>
+      <span class="title">{{ addingNew ? 'Cadastrar animal' : 'Alterando animal' }}</span>
     </ui-toolbar>
 
 
     <ui-card-content>
-      <fieldset [disabled]="saving || deleting">
+      <fieldset [disabled]="saving || loading">
         <form #form="ngForm" class="ui-validate on-dirty on-submit">
 
           <section class="images">
@@ -398,8 +398,6 @@
       <i class="material-icons">check</i>
     </button>
   </div>
-
-  {{ info | json }}
 
 
   <div style="height: 80px"></div>

@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
   temperamentOptions: any;
 
   saving: boolean;
+  loading: boolean;
   addingNew: boolean;
 
   PATH = environment.API + environment.PATH_ANIMAL_IMAGES;
@@ -75,7 +76,6 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
         {id: 2, nome: 'Agressivo'}
       ]
     };
-
 
   }
 
@@ -160,7 +160,7 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.correction();
 
-      if(this.addingNew) {
+      if (this.addingNew) {
         this.register();
       } else {
         this.update();
@@ -181,7 +181,7 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
       }, err => {
         console.error(err);
       }, () => {
-
+        this.saving = false;
       });
   }
 
@@ -197,9 +197,10 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
       }, err => {
         console.error(err);
       }, () => {
-
+        this.saving = false;
       });
   }
+
   correction() {
     this.info.cep = isNumber(this.info.cep) ? this.info.cep : parseInt(this.info.cep.replace('-', ''), 10);
     this.info.age = parseInt(this.info.age, 10);
@@ -207,12 +208,14 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getAnimal() {
+    this.loading = true;
     this._api.request('GET', `${environment.API}/animals/${this._route.snapshot.params.id}`, {})
       .subscribe(res => {
         this.info = res.content;
       }, err => {
         console.error(err);
       }, () => {
+        this.loading = false;
       });
   }
 
