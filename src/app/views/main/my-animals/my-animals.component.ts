@@ -19,7 +19,7 @@ export class MyAnimalsComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private toolbarService: UiToolbarService,
               private _api: ApiService,
               private _user: UserService,
-              private _location: Location) {
+              public _location: Location) {
   }
 
   ngOnInit() {
