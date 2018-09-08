@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {environment} from '../../../../environments/environment';
 
 @Component({
@@ -9,6 +9,8 @@ import {environment} from '../../../../environments/environment';
 export class SlideComponent implements OnInit {
 
   @Input('slide') slide;
+  @Input('readyToGo') readyToGo;
+  @ViewChild('images') images;
   pathImages: string;
 
   constructor() {
@@ -17,6 +19,12 @@ export class SlideComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  nextImage() {
+    const totalPages = this.images.element.nativeElement.querySelectorAll('.page').length;
+    const nextPage = this.images.currentPage < totalPages ? this.images.currentPage + 1 : 1;
+    this.images.pagesGoToPage(nextPage);
   }
 
 }

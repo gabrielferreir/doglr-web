@@ -1,15 +1,17 @@
-<ui-tabs-pages #images>
+<div *ngIf="readyToGo">
+  <ui-tabs-pages #images>
 
-  <div class="page" *ngFor="let image of slide; let index = index">
+    <div class="page" *ngFor="let image of slide; let index = index">
 
-    <div *ngIf="images.currentPage === (index + 1)">
+      <div *ngIf="images.currentPage === (index + 1)" (click)="nextImage()">
 
-      <ui-card-content style="padding: 0; text-align: center;">
-        <img [src]="pathImages + image.path" class="image-post"/>
-      </ui-card-content>
+        <ui-card-content style="padding: 0; text-align: center;">
+          <img [src]="pathImages + image.path" class="image-post"/>
+        </ui-card-content>
+
+      </div>
 
     </div>
 
-  </div>
-
-</ui-tabs-pages>
+  </ui-tabs-pages>
+</div>

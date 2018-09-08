@@ -18,7 +18,7 @@ export class AnimalComponent implements OnInit, AfterViewInit, OnDestroy {
 
   slide: any;
 
-  @ViewChild('images') images;
+  readyToGo: boolean;
 
   constructor(public _location: Location,
               private _api: ApiService,
@@ -41,13 +41,10 @@ export class AnimalComponent implements OnInit, AfterViewInit, OnDestroy {
     this.toolbarService.deactivateExtendedToolbar();
   }
 
-  nextImage() {
-    const totalPages = this.images.element.nativeElement.querySelectorAll('.page').length;
-    const nextPage = this.images.currentPage < totalPages ? this.images.currentPage + 1 : 1;
-    this.images.pagesGoToPage(nextPage);
-  }
+
 
   get() {
+    this.loading = true;
     this._api.request('GET', `${environment.API}/animals/${this._route.snapshot.params.id}`, {})
       .subscribe(res => {
         this.info = res.content;
@@ -55,6 +52,7 @@ export class AnimalComponent implements OnInit, AfterViewInit, OnDestroy {
         console.error(err);
       }, () => {
         this.slide = this.info.images;
+        this.readyToGo = true;
         this.loading = false;
       });
   }
