@@ -3,10 +3,9 @@
     <i class="material-icons">menu</i>
   </button>
   <div class="logo">
-    <!--<img src="assets/images/logo-acif-white.svg" alt="Acif lofo" title="Acif logo">-->
   </div>
   <span class="title">{{ title }}</span>
-  <div class="align-right">
+  <div class="align-right" *ngIf="user.name">
     <div class="avatar"
          [uiMenuTrigger]="menuUser"
          menu-align="right"
@@ -26,7 +25,6 @@
       <i class="material-icons">menu</i>
     </button>
     <div class="logo">
-      <!--<img src="assets/images/logo-acif.svg" alt="Acif logo" title="Acif logo">-->
     </div>
   </ui-toolbar>
   <div class="ui-nav-drawer-overflow">
