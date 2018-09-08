@@ -27,7 +27,7 @@ export class CardAnimalComponent implements OnInit {
       nav.share({
         title: title,
         text: description,
-        url: environment.URL + 'animal/' + id
+        url: environment.URL + '/animal/' + id
       })
         .then(() => console.log('Successful share'))
         .catch((error) => console.log('Error sharing', error));
