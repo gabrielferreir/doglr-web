@@ -13,11 +13,7 @@ import {UiToolbarService} from 'ng-smn-ui';
 export class AnimalComponent implements OnInit, AfterViewInit, OnDestroy {
   loading: boolean;
   info: any;
-
-  pathImages: string;
-
   slide: any;
-
   readyToGo: boolean;
 
   constructor(public _location: Location,
@@ -25,7 +21,6 @@ export class AnimalComponent implements OnInit, AfterViewInit, OnDestroy {
               private _route: ActivatedRoute,
               private toolbarService: UiToolbarService) {
     this.info = {};
-    this.pathImages = `${environment.API}/animals/`;
   }
 
   ngOnInit() {

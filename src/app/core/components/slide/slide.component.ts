@@ -11,11 +11,12 @@ export class SlideComponent implements OnInit {
   @Input('slide') slide;
   @Input('readyToGo') readyToGo;
   @ViewChild('images') images;
-  pathImages: string;
+
+  PATH = environment.API + environment.PATH_ANIMAL_IMAGES;
 
   constructor() {
     this.slide = !this.slide ? null : this.slide;
-    this.pathImages = `${environment.API}/images/photos_animals/`;
+
   }
 
   ngOnInit() {

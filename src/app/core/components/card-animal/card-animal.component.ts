@@ -17,7 +17,7 @@ export class CardAnimalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pathImage = this.info.images && this.info.images[0] ? `${environment.API}/images/photos_animals/${this.info.images[0].path}` : null;
+    this.pathImage = this.info.images && this.info.images[0] ? `${environment.API}${environment.PATH_ANIMAL_IMAGES}${this.info.images[0].path}` : null;
   }
 
   share(event, title, description, id) {
