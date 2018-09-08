@@ -14,8 +14,13 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   animalsDog: any;
   animalsCat: any;
 
+  loading: boolean;
+
   constructor(private _api: ApiService,
               private toolbarService: UiToolbarService) {
+    this.animals = [];
+    this.animalsDog = [];
+    this.animalsCat = [];
   }
 
   ngOnInit() {
@@ -32,17 +37,18 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getAnimals(type) {
+    this.loading = true;
     this._api.request('GET', `${environment.API}/animals${type ? '?tipo=' + type : ''}`, {})
       .subscribe(res => {
         if (type && type.toUpperCase() === 'C') {
-          this.animalsDog = res.content;
+          this.animalsDog = res.content || [];
         } else if (type && type.toUpperCase() === 'G') {
-          this.animalsCat = res.content;
+          this.animalsCat = res.content || [];
         } else {
-          this.animals = res.content;
+          this.animals = res.content || [];
         }
       }, null, () => {
-
+        this.loading = false;
       });
   }
 

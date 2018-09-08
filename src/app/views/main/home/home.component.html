@@ -1,8 +1,11 @@
 <div class="ui-s960">
-      <ui-card class="elevate-on-toolbar">
+  <ui-card class="elevate-on-toolbar">
+    <div class="ui-progress" [class.hide]="!loading">
+      <div class="indeterminate"></div>
+    </div>
     <div>
       <ui-tabs class="no-padding primary" #tabs>
-        <div class="tab selected" uiRipple (click)="tabsPages.pagesGoToPage(1)">
+        <div class="tab selected" uiRipple (click)="tabsPages.pagesGoToPage(1); getAnimals('');">
           Todos
         </div>
         <div class="tab" uiRipple (click)="tabsPages.pagesGoToPage(2); getAnimals('C');">
@@ -19,6 +22,7 @@
           <div *ngIf="tabsPages.currentPage === 1">
             <ui-card-content style="padding: 16px 8px">
               <app-card-animal *ngFor="let animal of animals" [info]="animal"></app-card-animal>
+              <p class="empty" *ngIf="animals.length === 0">{{ loading ? 'Carregando...' : 'Não há animais cadastrados' }}</p>
             </ui-card-content>
 
           </div>
@@ -27,6 +31,7 @@
           <div *ngIf="tabsPages.currentPage === 2">
             <ui-card-content>
               <app-card-animal *ngFor="let animal of animalsDog" [info]="animal"></app-card-animal>
+              <p class="empty" *ngIf="animalsDog.length === 0">{{ loading ? 'Carregando...' : 'Não há animais cadastrados nessa categoria' }}</p>
             </ui-card-content>
           </div>
         </div>
@@ -34,6 +39,7 @@
           <div *ngIf="tabsPages.currentPage === 3">
             <ui-card-content>
               <app-card-animal *ngFor="let animal of animalsCat" [info]="animal"></app-card-animal>
+              <p class="empty" *ngIf="animalsCat.length === 0">{{ loading ? 'Carregando...' : 'Não há animais cadastrados nessa categoria' }}</p>
             </ui-card-content>
           </div>
         </div>
