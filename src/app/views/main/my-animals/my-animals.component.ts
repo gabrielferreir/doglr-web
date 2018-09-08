@@ -14,6 +14,8 @@ export class MyAnimalsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   animals: any;
 
+  loading: boolean;
+
   constructor(private toolbarService: UiToolbarService,
               private _api: ApiService,
               private _user: UserService,
@@ -34,6 +36,7 @@ export class MyAnimalsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getMyAnimals() {
+    this.loading = true;
     this._api.request('GET', `${environment.API}/myanimals`, {
       headers: {
         authentication: this._user.getToken()
@@ -44,7 +47,7 @@ export class MyAnimalsComponent implements OnInit, AfterViewInit, OnDestroy {
       }, err => {
         console.error(err);
       }, () => {
-
+        this.loading = false;
       });
   }
 
