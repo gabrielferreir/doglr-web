@@ -46,36 +46,33 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
       registros: [
         {id: 'C', nome: 'Cachorro'},
         {id: 'G', nome: 'Gato'}
-      ]
+      ],
+      carregado: true
     };
 
     this.sexoOptions = {
       registros: [
         {id: true, nome: 'Macho'},
         {id: false, nome: 'Femea'}
-      ]
+      ],
+      carregado: true
     };
 
     this.porteOptions = {
-      registros: [
-        {id: 1, nome: 'Pequeno'},
-        {id: 2, nome: 'Grande'}
-      ]
+      registros: []
     };
 
     this.breedOptions = {
-      registros: [
-        {id: 1, nome: 'Vira-lata'},
-        {id: 2, nome: 'PitBull'}
-      ]
+      registros: []
     };
 
     this.temperamentOptions = {
-      registros: [
-        {id: 1, nome: 'Calmo'},
-        {id: 2, nome: 'Agressivo'}
-      ]
+      registros: []
     };
+
+    this.getBreed();
+    this.getPorte();
+    this.getTemperand();
 
   }
 
@@ -216,6 +213,36 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
         console.error(err);
       }, () => {
         this.loading = false;
+      });
+  }
+
+  getBreed() {
+    this.breedOptions.carregando = true;
+    this._api.request('GET', `${environment.API}/breed`, {})
+      .subscribe(res => {
+        this.breedOptions.registros = res.content;
+        this.breedOptions.carregando = false;
+        this.breedOptions.carregado = true;
+      });
+  }
+
+  getPorte() {
+    this.porteOptions.carregando = true;
+    this._api.request('GET', `${environment.API}/porte`, {})
+      .subscribe(res => {
+        this.porteOptions.registros = res.content;
+        this.porteOptions.carregando = false;
+        this.porteOptions.carregado = true;
+      });
+  }
+
+  getTemperand() {
+    this.temperamentOptions.carregando = true;
+    this._api.request('GET', `${environment.API}/temperament`, {})
+      .subscribe(res => {
+        this.temperamentOptions.registros = res.content;
+        this.temperamentOptions.carregando = false;
+        this.temperamentOptions.carregado = true;
       });
   }
 
