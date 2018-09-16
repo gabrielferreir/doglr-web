@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  API: 'https://api.miaudote.tk',
+  API: 'https://api.doglr.ml',
   system: 'MiAuDote',
   PATH_ANIMAL_IMAGES: '/images/photos_animals/',
-  URL: 'https://miaudote.tk'
+  URL: 'https://doglr.ml'
 };
