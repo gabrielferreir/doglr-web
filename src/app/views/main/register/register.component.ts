@@ -246,4 +246,17 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
+  searchCep(cep) {
+    if (cep.length === 8) {
+      this._api.request('GET', `https://viacep.com.br/ws/${cep}/json/`, {})
+        .subscribe(res => {
+          console.log(res);
+          this.info.rua = res.logradouro;
+          this.info.cidade = res.localidade;
+          this.info.bairro = res.bairro;
+          this.info.uf = res.uf;
+        });
+    }
+  }
+
 }
