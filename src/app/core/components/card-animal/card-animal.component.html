@@ -15,7 +15,7 @@
   <section class="card-animal__info">
     <span class="card-animal__info__title">{{ info.title }}</span>
     <span class="card-animal__info__breed">{{ info.breed }}</span>
-    <span class="card-animal__info__age">{{ info.age + ' anos' }}</span>
+    <span class="card-animal__info__age">{{ info.age + ' meses' }}</span>
     <section class="card-animal__info__footer">
       <span>{{ info.views === 0 ? 'Sem visualições' : info.views === 1 ? info.views + ' visualização' : info.views + ' visualizações' }} </span>
       <button class="ui-button flat primary no-padding" (click)="share($event, info.title, info.description, info.id)">COMPARTILHAR</button>
