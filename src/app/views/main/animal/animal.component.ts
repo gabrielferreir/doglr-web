@@ -52,4 +52,12 @@ export class AnimalComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
+  format(meses) {
+    const a = Math.floor(meses / 12);
+    const m = meses - (a * 12);
+    return a && m ?  `${a > 1 ? `${a} anos` : `${a} ano`}  e ${m > 1 ? `${m} meses` : `${m} mes`} ` :
+      a && !m ? `${a > 1 ? `${a} anos` : `${a} ano`}` :
+        `${m > 1 ? `${m} meses` : `${m} mes`}`;
+  }
+
 }
