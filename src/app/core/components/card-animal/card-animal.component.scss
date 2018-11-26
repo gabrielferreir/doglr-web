@@ -1,0 +1,48 @@
+.card-animal {
+  width: 100%;
+  background-color: #FFF;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  box-sizing: border-box;
+  overflow: hidden;
+  &__image {
+    min-width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    //background-color: #EEE;
+    margin-right: 8px;
+    //background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  &__info {
+    width: 100%;
+    &__title, &__breed, &__age {
+      display: block;
+      font-size: 12px;
+    }
+
+    &__title {
+      font-weight: 500;
+      font-size: 16px;
+      color: rgba(0, 0, 0, .87);
+    }
+    &__breed {
+      margin-top: 4px;
+    }
+
+    &__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+    }
+  }
+
+  .no-padding {
+    padding: 0;
+  }
+
+}

@@ -1,0 +1,98 @@
+<div class="ui-s960">
+  <ui-card class="elevate-on-toolbar" [class.loading]="loading">
+
+    <div class="ui-progress" [class.hide]="!loading">
+      <div class="indeterminate"></div>
+    </div>
+
+
+    <ui-toolbar class="flat">
+      <button class="ui-button flat icon" type="button" uiRipple (click)="_location.back()">
+        <i class="material-icons">arrow_back</i>
+      </button>
+      <span class="title">Animal</span>
+    </ui-toolbar>
+
+
+    <app-slide [slide]="slide" [readyToGo]="readyToGo"></app-slide>
+
+    <ui-tabs class="no-padding primary" #tabAnimal>
+      <div class="tab selected" uiRipple (click)="animals.pagesGoToPage(1)">
+        Informações
+      </div>
+      <div class="tab" uiRipple (click)="animals.pagesGoToPage(2)">
+        Contato
+      </div>
+    </ui-tabs>
+
+    <ui-tabs-pages #animals [tabs]="tabAnimal">
+      <div class="page">
+        <ui-card-content>
+          <header class="header-descricao">
+
+            <section class="header-descricao__item">
+              <span class="header-descricao__item__title">Nome</span>
+              <span class="header-descricao__item__subtitle">{{ info.title }}</span>
+            </section>
+
+            <section class="header-descricao__item">
+              <span class="header-descricao__item__title">Raça</span>
+              <span class="header-descricao__item__subtitle">{{ info.breed }}</span>
+            </section>
+
+            <section class="header-descricao__item">
+              <span class="header-descricao__item__title">Idade</span>
+              <span class="header-descricao__item__subtitle">{{ format(info.age) }}</span>
+            </section>
+
+          </header>
+
+          <main class="content-descricao">
+            <h3 class="content-descricao__title">Descrição</h3>
+            <p class="content-descricao__description">{{ info.description }}</p>
+          </main>
+
+        </ui-card-content>
+      </div>
+      <div class="page">
+        <ul class="ui-list">
+
+          <li class="ui-list-item multi-line">
+            <div class="icon">
+              <i class="material-icons">phone</i>
+            </div>
+
+            <div class="lines">
+
+              <div class="primary">Telefone</div>
+
+              <div class="secondary">{{ info.telefone | uiPhone }}</div>
+
+            </div>
+          </li>
+
+          <li class="ui-list-item multi-line">
+            <div class="icon">
+              <i class="material-icons">location_on</i>
+            </div>
+
+            <div class="lines">
+
+              <div class="primary">Endereço</div>
+
+              <div class="secondary">{{ info.rua + ', ' + info.numero + ' - ' + info.bairro + ', ' + info.cidade + ' - '
+                + info.uf + ', ' + info.cep }}
+              </div>
+
+            </div>
+          </li>
+
+
+        </ul>
+      </div>
+    </ui-tabs-pages>
+
+  </ui-card>
+
+  <div style="height: 80px;"></div>
+</div>

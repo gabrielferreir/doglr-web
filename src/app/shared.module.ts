@@ -5,6 +5,9 @@ import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
+import {ApiService} from './core/api/api.service';
+import {UserService} from './core/user/user.service';
+import {GuardService} from './core/guard/guard.service';
 
 @NgModule({
   declarations: [],
@@ -16,7 +19,7 @@ import {RouterModule} from '@angular/router';
     HttpClientModule,
     RouterModule,
   ],
-  providers: [UiToolbarService],
+  providers: [UiToolbarService, ApiService, UserService, GuardService],
   bootstrap: []
 })
 export class SharedModule {

@@ -1,1 +1,61 @@
-<header>HEADER dsada</header>
+<ui-toolbar class="fixed flat elevate-on-scroll primary elevate-on-s960" id="app-header">
+  <button (click)="menuOpen = true" class="ui-button flat icon" uiRipple>
+    <i class="material-icons">menu</i>
+  </button>
+  <div class="logo">
+  </div>
+  <span class="title">{{ title }}</span>
+  <div class="align-right" *ngIf="user.name">
+    <div class="avatar"
+         [uiMenuTrigger]="menuUser"
+         menu-align="right"
+         theme-class="menu-user"
+         [ngStyle]="{'background-image': user.image ? 'url(' + user.image + ')' : '',
+                         'background-color': user.image ? 'white' : '#00B59F',
+                          'color': 'white'}">
+      <span *ngIf="user && !user.image && user.name">{{user.name.charAt(0)}}</span>
+    </div>
+  </div>
+</ui-toolbar>
+
+<!-- Add class 'persistent' para deixar o menu persistente, deve também descomentar o código no main.component -->
+<ui-nav-drawer [(open)]="menuOpen">
+  <ui-toolbar class="flat">
+    <button (click)="menuOpen = false" class="ui-button flat icon" uiRipple>
+      <i class="material-icons">menu</i>
+    </button>
+    <div class="logo">
+    </div>
+  </ui-toolbar>
+  <div class="ui-nav-drawer-overflow">
+    <div class="ui-list">
+      <a class="ui-list-item" uiRipple routerLink="/" [routerLinkActive]="['active']"
+         [routerLinkActiveOptions]="{ exact: true }">Home</a>
+      <a class="ui-list-item" uiRipple routerLink="/register-animal" [routerLinkActive]="['active']"
+         [routerLinkActiveOptions]="{ exact: true }">Cadastrar animal</a>
+      <a class="ui-list-item" uiRipple routerLink="/my-animals" [routerLinkActive]="['active']"
+         [routerLinkActiveOptions]="{ exact: true }">Meus animais</a>
+    </div>
+  </div>
+</ui-nav-drawer>
+
+<router-outlet></router-outlet>
+
+<ui-menu #menuUser>
+  <header>
+    <div class="avatar"
+         [uiMenuTrigger]="menuUser"
+         menu-align="right"
+         [ngStyle]="{'background-image': user.image ? 'url(' + user.image + ')' : '',
+                         'background-color': user.image ? 'white' : '#00B59F',
+                         'color': '#FFF'}">
+      <span *ngIf="!user.image">{{user.name?.charAt(0)}}</span>
+    </div>
+    <div class="primary-text">{{user.name}}</div>
+  </header>
+  <div class="ui-menu-content size-3x">
+    <div class="ui-menu-item" uiRipple (click)="logoff()">
+      Sair
+    </div>
+  </div>
+</ui-menu>

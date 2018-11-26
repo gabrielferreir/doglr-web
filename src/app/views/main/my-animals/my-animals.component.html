@@ -1,0 +1,21 @@
+<div class="ui-s960">
+  <ui-card class="elevate-on-toolbar">
+    <div class="ui-progress" [class.hide]="!loading">
+      <div class="indeterminate"></div>
+    </div>
+
+
+    <ui-toolbar class="flat">
+      <button class="ui-button flat icon" type="button" uiRipple (click)="_location.back()">
+        <i class="material-icons">arrow_back</i>
+      </button>
+      <span class="title">Meus animais</span>
+    </ui-toolbar>
+
+      <ui-card-content style="padding: 16px 8px">
+        <app-card-animal *ngFor="let animal of animals" [info]="animal" [editing]="true"></app-card-animal>
+      </ui-card-content>
+
+
+  </ui-card>
+</div>

@@ -1,0 +1,102 @@
+<section class="core">
+  <ui-toolbar class="fixed flat primary extend">
+    <button class="ui-button flat icon" type="button" uiRipple [routerLink]="['/login']">
+      <i class="material-icons">arrow_back</i>
+    </button>
+    <span class="title">Cadastro</span>
+  </ui-toolbar>
+
+  <div class="ui-s960">
+    <ui-card class="elevate-on-toolbar">
+
+      <ui-card-content>
+        <ui-subheader>Preencha o formulario abaixo:</ui-subheader>
+
+        <form #formCadastro="ngForm" class="ui-validate on-dirty on-submit">
+
+          <ui-input-container>
+            <input id="name" #inputName="ngModel" type="text"
+                   [(ngModel)]="info.name"
+                   required
+                   uiInput
+                   name="name">
+            <label for="name">Nome</label>
+            <div class="ui-messages">
+              <div *ngIf="inputName.errors && inputName.dirty">
+                <div class="ui-message error"
+                     [hidden]="!inputName.pristine && !inputName.errors.required">
+                  Digite seu nome
+                </div>
+              </div>
+            </div>
+          </ui-input-container>
+
+          <ui-input-container>
+            <input id="email" #inputEmail="ngModel" type="email"
+                   [(ngModel)]="info.email"
+                   required
+                   email
+                   uiInput
+                   name="email">
+            <label for="email">Email</label>
+            <div class="ui-messages">
+              <div *ngIf="inputEmail.errors && inputEmail.dirty">
+                <div class="ui-message error"
+                     [hidden]="!inputEmail.pristine && !inputEmail.errors.required">
+                  Digite seu email
+                </div>
+                <div class="ui-message error"
+                     [hidden]="!inputEmail.pristine && !inputEmail.errors.usedEmail">
+                  Esse email já foi utilizado
+                </div>
+              </div>
+            </div>
+          </ui-input-container>
+
+          <ui-input-container>
+            <input id="pass" #inputPass="ngModel" type="password"
+                   [(ngModel)]="info.pass"
+                   required
+                   uiInput
+                   name="pass">
+            <label for="pass">Senha</label>
+            <div class="ui-messages">
+              <div *ngIf="inputPass.errors && inputPass.dirty">
+                <div class="ui-message error"
+                     [hidden]="!inputPass.pristine && !inputPass.errors.required">
+                  Digite sua senha
+                </div>
+              </div>
+            </div>
+          </ui-input-container>
+
+          <ui-input-container>
+            <input id="phone" #inputPhone="ngModel" type="tel"
+                   [(ngModel)]="info.phone"
+                   uiInput
+                   name="phone"
+                   uiMaskPhone>
+            <label for="phone">Telefone</label>
+            <div class="ui-messages">
+              <div *ngIf="inputPhone.errors && inputPhone.dirty">
+                <div class="ui-message error"
+                     [hidden]="!inputPhone.pristine && !inputPhone.errors.usedPhone">
+                  Esse telefone já foi utilizado
+                </div>
+              </div>
+            </div>
+          </ui-input-container>
+
+
+        </form>
+      </ui-card-content>
+    </ui-card>
+    <div class="ui-fab-container">
+      <a class="ui-button primary fab" uiRipple (click)="onSubmit(formCadastro)">
+        <ui-progress-radial class="indeterminate" *ngIf="saving"></ui-progress-radial>
+        <i class="material-icons">save</i>
+      </a>
+    </div>
+
+  </div>
+</section>
