@@ -29,7 +29,7 @@ export class GuardService implements CanActivate {
         resolve(false);
       }
 
-      this._api.request('GET', `${environment.API}/refazer/${cookies}`, {})
+      this._api.request('GET', `${environment.API}/users/refazer/${cookies}`, {})
         .subscribe(res => {
           const content = res.content;
           this._user.setUser(content.user);

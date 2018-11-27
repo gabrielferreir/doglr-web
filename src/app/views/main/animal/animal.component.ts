@@ -42,7 +42,8 @@ export class AnimalComponent implements OnInit, AfterViewInit, OnDestroy {
     this.loading = true;
     this._api.request('GET', `${environment.API}/animals/${this._route.snapshot.params.id}`, {})
       .subscribe(res => {
-        this.info = res.content;
+        this.info = res.content || {};
+        console.log('info', this.info);
       }, err => {
         console.error(err);
       }, () => {

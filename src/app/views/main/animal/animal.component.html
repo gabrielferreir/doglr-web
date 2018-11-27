@@ -32,7 +32,7 @@
 
             <section class="header-descricao__item">
               <span class="header-descricao__item__title">Nome</span>
-              <span class="header-descricao__item__subtitle">{{ info.title }}</span>
+              <span class="header-descricao__item__subtitle">{{ info.name }}</span>
             </section>
 
             <section class="header-descricao__item">
@@ -66,7 +66,7 @@
 
               <div class="primary">Telefone</div>
 
-              <div class="secondary">{{ info.telefone | uiPhone }}</div>
+              <div class="secondary">{{ info.phone | uiPhone }}</div>
 
             </div>
           </li>
@@ -80,7 +80,8 @@
 
               <div class="primary">Endereço</div>
 
-              <div class="secondary">{{ info.rua + ', ' + info.numero + ' - ' + info.bairro + ', ' + info.cidade + ' - '
+              <div class="secondary">{{ info.street + ', ' + info.number + ' - ' + info.neighborhood + ', ' + info.city
+                + ' - '
                 + info.uf + ', ' + info.cep }}
               </div>
 

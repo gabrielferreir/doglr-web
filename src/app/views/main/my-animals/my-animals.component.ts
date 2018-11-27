@@ -37,7 +37,7 @@ export class MyAnimalsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getMyAnimals() {
     this.loading = true;
-    this._api.request('GET', `${environment.API}/myanimals`, {
+    this._api.request('GET', `${environment.API}/animals/my`, {
       headers: {
         authentication: this._user.getToken()
       }

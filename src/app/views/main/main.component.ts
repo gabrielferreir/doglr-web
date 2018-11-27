@@ -45,7 +45,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     });
     if (!Object.keys(this.user).length) {
       const cookies = this._user.getCookie().authentication;
-      this._api.request('GET', `${environment.API}/refazer/${cookies}`, {})
+      this._api.request('GET', `${environment.API}/users/refazer/${cookies}`, {})
         .subscribe(res => {
           this._user.setUser(res.content.user);
         });

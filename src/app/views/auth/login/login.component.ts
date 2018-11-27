@@ -3,7 +3,6 @@ import {environment} from '../../../../environments/environment';
 import {ApiService} from '../../../core/api/api.service';
 import {UserService} from '../../../core/user/user.service';
 import {Router} from '@angular/router';
-import {UiElement} from 'ng-smn-ui';
 
 @Component({
   selector: 'app-login',
@@ -42,7 +41,9 @@ export class LoginComponent implements OnInit {
 
     this.loading = true;
 
-    this._api.request('POST', `${environment.API}/login`, {
+    console.log(this.info);
+
+    this._api.request('POST', `${environment.API}/users/login`, {
       body: this.info
     }).subscribe(response => {
       const content = response.content;

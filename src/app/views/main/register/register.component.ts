@@ -228,7 +228,7 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getPorte() {
     this.porteOptions.carregando = true;
-    this._api.request('GET', `${environment.API}/porte`, {})
+    this._api.request('GET', `${environment.API}/size`, {})
       .subscribe(res => {
         this.porteOptions.registros = res.content;
         this.porteOptions.carregando = false;

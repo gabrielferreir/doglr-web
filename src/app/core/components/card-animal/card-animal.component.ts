@@ -38,8 +38,8 @@ export class CardAnimalComponent implements OnInit {
 
   open() {
     this.editing ?
-      this.router.navigate(['/update-animal/', this.info.id]) :
-      this.router.navigate(['/animal/', this.info.id]);
+      this.router.navigate(['/update-animal/', this.info._id]) :
+      this.router.navigate(['/animal/', this.info._id]);
   }
 
   format(meses) {
