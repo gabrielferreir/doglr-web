@@ -58,7 +58,7 @@
 
             <ui-input-container>
               <input id="title" #inputTitle="ngModel" type="text"
-                     [(ngModel)]="info.title"
+                     [(ngModel)]="info.name"
                      uiInput
                      name="title"
                      required>
@@ -108,10 +108,10 @@
             <ui-input-container>
               <ui-select #inputType="ngModel"
                          name="type"
-                         [(ngModel)]="info.type"
+                         [(ngModel)]="info.typeAnimal"
                          [options]="typeOptions.registros"
-                         value="id"
-                         label="nome"
+                         value="_id"
+                         label="name"
                          uiInput
                          required
                          id="type"></ui-select>
@@ -131,7 +131,7 @@
             <ui-input-container>
               <ui-select #inputSexo="ngModel"
                          name="sexo"
-                         [(ngModel)]="info.sexo"
+                         [(ngModel)]="info.genre"
                          [options]="sexoOptions.registros"
                          value="id"
                          label="nome"
@@ -178,7 +178,7 @@
             <ui-input-container>
               <ui-select #inputPorte="ngModel"
                          name="porte"
-                         [(ngModel)]="info.porte"
+                         [(ngModel)]="info.size"
                          [options]="porteOptions.registros"
                          value="_id"
                          label="name"
@@ -273,7 +273,7 @@
 
             <ui-input-container>
               <input id="rua" #inputRua="ngModel" type="text"
-                     [(ngModel)]="info.rua"
+                     [(ngModel)]="info.street"
                      uiInput
                      name="rua"
                      required>
@@ -290,7 +290,7 @@
 
             <ui-input-container>
               <input id="numero" #inputNumero="ngModel" type="text"
-                     [(ngModel)]="info.numero"
+                     [(ngModel)]="info.number"
                      uiInput
                      name="numero"
                      required>
@@ -311,7 +311,7 @@
 
             <ui-input-container>
               <input id="bairro" #inputBairro="ngModel" type="text"
-                     [(ngModel)]="info.bairro"
+                     [(ngModel)]="info.neighborhood"
                      uiInput
                      name="bairro"
                      required>
@@ -328,7 +328,7 @@
 
             <ui-input-container>
               <input id="cidade" #inputCidade="ngModel" type="text"
-                     [(ngModel)]="info.cidade"
+                     [(ngModel)]="info.city"
                      uiInput
                      name="cidade"
                      required>
@@ -367,7 +367,7 @@
             <ui-input-container>
               <input id="telefone" #inputTelefone="ngModel" type="text"
                      uiMaskPhone
-                     [(ngModel)]="info.telefone"
+                     [(ngModel)]="info.phone"
                      uiInput
                      name="telefone"
                      required>

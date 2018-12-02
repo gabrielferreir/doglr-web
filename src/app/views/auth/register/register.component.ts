@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
       return false;
     }
 
-    this._api.request('POST', `${environment.API}/user`, {
+    this._api.request('POST', `${environment.API}/users`, {
       body: this.info
     }).subscribe(response => {
       this._router.navigate(['/login']);

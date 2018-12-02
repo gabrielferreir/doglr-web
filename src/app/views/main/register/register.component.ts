@@ -52,8 +52,8 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.sexoOptions = {
       registros: [
-        {id: true, nome: 'Macho'},
-        {id: false, nome: 'Femea'}
+        {id: 'M', nome: 'Macho'},
+        {id: 'F', nome: 'Femea'}
       ],
       carregado: true
     };
@@ -73,6 +73,7 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getBreed();
     this.getPorte();
     this.getTemperand();
+    this.getTypeAnimal();
 
   }
 
@@ -201,7 +202,7 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
   correction() {
     this.info.cep = isNumber(this.info.cep) ? this.info.cep : parseInt(this.info.cep.replace('-', ''), 10);
     this.info.age = parseInt(this.info.age, 10);
-    this.info.numero = this.info.numero.toString();
+    this.info.number = this.info.number.toString();
   }
 
   getAnimal() {
@@ -223,6 +224,16 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.breedOptions.registros = res.content;
         this.breedOptions.carregando = false;
         this.breedOptions.carregado = true;
+      });
+  }
+
+  getTypeAnimal() {
+    this.typeOptions.carregando = true;
+    this._api.request('GET', `${environment.API}/type-animal`, {})
+      .subscribe(res => {
+        this.typeOptions.registros = res.content.records;
+        this.typeOptions.carregando = false;
+        this.typeOptions.carregado = true;
       });
   }
 
@@ -251,9 +262,9 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
       this._api.request('GET', `https://viacep.com.br/ws/${cep}/json/`, {})
         .subscribe(res => {
           console.log(res);
-          this.info.rua = res.logradouro;
-          this.info.cidade = res.localidade;
-          this.info.bairro = res.bairro;
+          this.info.street = res.logradouro;
+          this.info.city = res.localidade;
+          this.info.neighborhood = res.bairro;
           this.info.uf = res.uf;
         });
     }

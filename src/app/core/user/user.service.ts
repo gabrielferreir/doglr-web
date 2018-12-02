@@ -6,12 +6,13 @@ import {Subject} from 'rxjs';
 @Injectable()
 export class UserService {
   token: string;
-  user = new Subject();
+  user;
   COOKIE_NAME = {
     authentication: `${environment.system}Authentication`
   };
 
   constructor() {
+    this.user = new Subject();
   }
 
   getUser() {
@@ -19,6 +20,8 @@ export class UserService {
   }
 
   setUser(user) {
+    console.log('user', user);
+    console.log('this.user', this.user);
     this.user.next(user);
   }
 
@@ -42,7 +45,7 @@ export class UserService {
   }
 
   remove() {
-    this.user = null;
+    this.user = new Subject();
     this.token = null;
     UiCookie.delete(this.COOKIE_NAME.authentication);
   }
