@@ -6,7 +6,7 @@
       <div *ngIf="images.currentPage === (index + 1)" (click)="nextImage()">
 
         <ui-card-content style="padding: 0; text-align: center;">
-          <img [src]="PATH + image.path" class="image-post"/>
+          <img [src]="image.base64" class="image-post"/>
         </ui-card-content>
 
       </div>
